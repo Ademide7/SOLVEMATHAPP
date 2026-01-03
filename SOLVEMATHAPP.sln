@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.Domain", "SolveMathApp.Domain\SolveMathApp.Domain.csproj", "{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.Application", "SolveMathApp.Application\SolveMathApp.Application.csproj", "{68B515C1-10C0-4776-B1F4-5C44B4944E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.Infrastructure", "SolveMathApp.Infrastructure\SolveMathApp.Infrastructure.csproj", "{10856FA7-686E-4BB3-B353-338B69B02ED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.WebApp", "SolveMathApp.WebApp\SolveMathApp.WebApp.csproj", "{9D9F0EBF-7DA5-4267-9DDC-363D35EED100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.ServerApp", "SolveMathApp.ServerApp\SolveMathApp.ServerApp.csproj", "{B788712E-4E9C-46BD-8A3B-040B04D1C00D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.WebAssembley", "SolveMathApp.WebAssembley\SolveMathApp.WebAssembley.csproj", "{F9B13020-4A60-4A76-AD8F-EC63BE327E24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.SharedKernel", "SolveMathApp.SharedKernel\SolveMathApp.SharedKernel.csproj", "{16B03CB3-7E44-48D6-9506-86AE451BF9E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B515C1-10C0-4776-B1F4-5C44B4944E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B515C1-10C0-4776-B1F4-5C44B4944E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B515C1-10C0-4776-B1F4-5C44B4944E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B515C1-10C0-4776-B1F4-5C44B4944E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10856FA7-686E-4BB3-B353-338B69B02ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10856FA7-686E-4BB3-B353-338B69B02ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10856FA7-686E-4BB3-B353-338B69B02ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10856FA7-686E-4BB3-B353-338B69B02ED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9F0EBF-7DA5-4267-9DDC-363D35EED100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9F0EBF-7DA5-4267-9DDC-363D35EED100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9F0EBF-7DA5-4267-9DDC-363D35EED100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9F0EBF-7DA5-4267-9DDC-363D35EED100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B788712E-4E9C-46BD-8A3B-040B04D1C00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B788712E-4E9C-46BD-8A3B-040B04D1C00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B788712E-4E9C-46BD-8A3B-040B04D1C00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B788712E-4E9C-46BD-8A3B-040B04D1C00D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B13020-4A60-4A76-AD8F-EC63BE327E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B13020-4A60-4A76-AD8F-EC63BE327E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B13020-4A60-4A76-AD8F-EC63BE327E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B13020-4A60-4A76-AD8F-EC63BE327E24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E5D114A-BBD0-4EA7-A54D-2DD5140205CF}
+	EndGlobalSection
+EndGlobal
