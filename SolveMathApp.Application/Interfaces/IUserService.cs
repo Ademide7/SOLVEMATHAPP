@@ -14,5 +14,7 @@ namespace SolveMathApp.Application.Interfaces
 		Task<ResponseModel> CreateUser(UserDto userDto);
 		Task<ResponseModel> UpdateUser(User user);
 		Task<ResponseModel<bool>> ValidateUserByEmail(string email, string password);
+		Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId);
+
 	}
 }

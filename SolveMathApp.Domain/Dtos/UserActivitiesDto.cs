@@ -9,5 +9,5 @@ namespace SolveMathApp.Domain.Dtos
 {
 	public record UserActivitiesDto(
 	Guid UserId,
-	ActivityEnum ActivityId); 
+	ActivityEnum ActivityId, string description); 
 }

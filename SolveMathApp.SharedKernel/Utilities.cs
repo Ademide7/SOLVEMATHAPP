@@ -8,11 +8,17 @@ namespace SolveMathApp.SharedKernel
 		{
 			if (password == null) return string.Empty;
 
-			string encryptedPassword = password;
-
+			string encryptedPassword  = string.Empty;
+			//SHA256 encryption
+			using (var sha256 = System.Security.Cryptography.SHA256.Create())
+			{
+				var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+				var hash = sha256.ComputeHash(bytes);
+				encryptedPassword = Convert.ToBase64String(hash);
+			}
 			return encryptedPassword;
 		}
-
+		 
 		// validate email
 
 		public static bool ValidateEmail(string email)

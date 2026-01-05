@@ -1,0 +1,38 @@
+﻿@page "/list"
+@using SolveMathApp.Domain.Dtos
+@inject IActivityService activityService;
+@attribute [StreamRendering]    
+
+<h3>ListComponent</h3>
+
+@if(activities ==  null)
+{
+    <p>Loading activities...</p>
+}
+else
+{
+    <table>
+        @foreach(var item in activities)
+        {
+            <tr>
+                <td>
+                      @item.id
+                </td>
+                <td>
+                    <b> @item.Name </b>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@code {
+
+    private List<ActivityDto> activities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        activities = await activityService.GetAllActivities();
+    }
+
+}

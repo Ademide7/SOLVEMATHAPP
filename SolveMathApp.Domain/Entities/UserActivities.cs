@@ -14,15 +14,17 @@ namespace SolveMathApp.Domain.Entities
 		public Guid Id { get; set; }
 		public Guid UserId { get; set; }
 		public ActivityEnum ActivityId { get; set; } = ActivityEnum.None;
+		public string Description { get; set; } = string.Empty;
 		public DateTime DateCreated { get; set; }
 		
 		public UserActivities() => Id = Guid.NewGuid();
 
-		public UserActivities CreateUserActivities (UserActivitiesDto userActivitiesDto)
+		public static UserActivities CreateUserActivities (UserActivitiesDto userActivitiesDto)
 		{
 			UserActivities userActivities = new UserActivities();
 			userActivities.ActivityId = userActivitiesDto.ActivityId;
 			userActivities.UserId = userActivitiesDto.UserId;
+			userActivities.Description = userActivitiesDto.description;
 			return userActivities;
 		} 
 

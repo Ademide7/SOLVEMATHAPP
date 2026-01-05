@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SolveMathApp.Domain\SolveMathApp.Domain.csproj" />
+    <ProjectReference Include="..\SolveMathApp.Infrastructure\SolveMathApp.Infrastructure.csproj" />
     <ProjectReference Include="..\SolveMathApp.SharedKernel\SolveMathApp.SharedKernel.csproj" />
   </ItemGroup>
 
