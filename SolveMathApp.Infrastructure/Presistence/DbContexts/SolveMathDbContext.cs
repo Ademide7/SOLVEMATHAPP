@@ -11,6 +11,7 @@ namespace SolveMathApp.Infrastructure.Presistence.DbContexts
 
 		public SolveMathDbContext(DbContextOptions<SolveMathDbContext> options) : base(options)
 		{
+
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

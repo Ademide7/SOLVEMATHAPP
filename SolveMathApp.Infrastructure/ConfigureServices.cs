@@ -25,7 +25,7 @@ namespace SolveMathApp.Infrastructure
 			if (configuration.GetValue<bool>("UseFakeDatabase"))
 			{
 				services.AddDbContext<SolveMathDbContext>(o =>
-					o.UseSqlite("Data Source=FakeDb.db"));
+					o.UseSqlite("Data Source=SolveMathAppFakeDb.db"));
 			}
 			else
 			{

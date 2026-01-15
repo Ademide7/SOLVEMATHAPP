@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11408.102 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.Domain", "SolveMathApp.Domain\SolveMathApp.Domain.csproj", "{27017AF2-3FDD-4131-9C4A-20E72DD1E18C}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.WebAssembley", "SolveMathApp.WebAssembley\SolveMathApp.WebAssembley.csproj", "{F9B13020-4A60-4A76-AD8F-EC63BE327E24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.SharedKernel", "SolveMathApp.SharedKernel\SolveMathApp.SharedKernel.csproj", "{16B03CB3-7E44-48D6-9506-86AE451BF9E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolveMathApp.Api", "SolveMathApp.Api\SolveMathApp.Api.csproj", "{D2368DFA-A156-4366-A475-E4FD3FCCD1BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B03CB3-7E44-48D6-9506-86AE451BF9E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2368DFA-A156-4366-A475-E4FD3FCCD1BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2368DFA-A156-4366-A475-E4FD3FCCD1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2368DFA-A156-4366-A475-E4FD3FCCD1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2368DFA-A156-4366-A475-E4FD3FCCD1BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
