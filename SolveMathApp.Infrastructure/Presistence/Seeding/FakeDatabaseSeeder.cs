@@ -48,7 +48,7 @@ namespace SolveMathApp.Infrastructure.Presistence.Seeding
 			{
 				user.Passwords.Add(new Password
 				{
-					Value = Utilities.EncryptPassword("Password123!"),
+					Value = SolveMathApp.SharedKernel.Utilities.EncryptPassword("Password123!"),
 					Id = Guid.NewGuid(),
 					DateCreated = DateTime.UtcNow.AddHours(1),
 					UserId = user.Id

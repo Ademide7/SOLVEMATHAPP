@@ -55,9 +55,9 @@ namespace SolveMathApp.Api.Controllers
         //GET ALL USERS
         [HttpGet("all")]
         [Authorize]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(int page, int pageSize)
         {
-            var result = await userService.GetAllUsers();
+            var result = await userService.GetAllUsers(page,pageSize);
             return Ok(result);
         }
     }

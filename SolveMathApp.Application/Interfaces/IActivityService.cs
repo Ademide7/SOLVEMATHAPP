@@ -14,7 +14,8 @@ namespace SolveMathApp.Application.Interfaces
 		Task<ResponseModel<CalculateFactorialResultDto>> CalculateFactorial(CalculateFactorialDto dto);
 		Task<ResponseModel<CalculateAgeResultDto>> CalculateAge(CalculateAgeDto dto);
 		Task<List<ActivityDto>> GetAllActivities();
-		Task<ResponseModel<CalculateDistanceResultDto>> CalculateDistance(CalculateDistanceDto dto);
-        Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId);
-    }
+		Task<ResponseModel<CalculateDistanceResultDto>> CalculateDistance(CalculateDistanceDto dto); 
+		Task<ResponseModel<PaginationResponse<UserActivities>>> GetUserActivities(Guid userId, int page, int pageSize);
+
+	}
 }

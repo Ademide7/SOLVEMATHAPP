@@ -1,12 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using SolveMathApp.Domain.Abstractions;
 using SolveMathApp.Domain.Entities;
 using SolveMathApp.Infrastructure.Presistence.DbContexts;
 using SolveMathApp.Infrastructure.Presistence.Interfaces;
+using SolveMathApp.Infrastructure.Presistence.Utilities;
+using SolveMathApp.SharedKernel.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SolveMathApp.Infrastructure.Presistence.Repository
@@ -34,9 +39,9 @@ namespace SolveMathApp.Infrastructure.Presistence.Repository
 			return 0 < await _context.SaveChangesAsync();
 		}
 
-		public async Task<List<UserActivities>> GetUserActivitiesByUserId(Guid userId)
+		public async Task<PaginationResponse<UserActivities>> GetUserActivitiesByUserId(Guid userId, int page ,int pageSize)
 		{
-			return await _context.UserActivities.Where(ua => ua.UserId == userId).ToListAsync();
+			return await PaginationHelper.PaginateAsync<UserActivities>(_context.UserActivities.Where(ua => ua.UserId == userId).AsNoTracking(),page,pageSize);
 		}
 
 		public async Task<bool> UpdateUser(User user)
@@ -53,10 +58,11 @@ namespace SolveMathApp.Infrastructure.Presistence.Repository
 		}
 
 		//get all users .
-		public async Task<List<User>> GetAllUsers()
+		public async Task<PaginationResponse<User>> GetAllUsers(int page, int size)
 		{
-			return await _context.Users.ToListAsync();
 
+			IQueryable<User> query = _context.Users.Where(x => x.Id != Guid.Empty);
+			return await PaginationHelper.PaginateAsync(query, page,size);
 		}
 
 		// check if user exists by email.

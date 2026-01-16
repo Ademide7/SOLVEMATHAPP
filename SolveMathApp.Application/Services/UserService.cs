@@ -63,21 +63,21 @@ namespace SolveMathApp.Application.Services
 			return new ResponseModel<ValidateUserDto>(new ValidateUserDto(true, newToken), "Token Refreshed Successfully!", true);
 		}
 
-		public async Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId)
+		public async Task<ResponseModel<PaginationResponse<UserActivities>>> GetUserActivities(Guid userId,int page,int pageSize)
 		{ 
-			var userActivities = await userRepository.GetUserActivitiesByUserId(userId);
-			if (userActivities.Count > 0)
+			var userActivities = await userRepository.GetUserActivitiesByUserId(userId,page,pageSize);
+			if (userActivities.PageSize > 0)
 			{
-				return new ResponseModel<List<UserActivities>>(userActivities, "Done Successfully!", true);
+				return new ResponseModel<PaginationResponse<UserActivities>>(userActivities, "Done Successfully!", true);
 			}
-			return new ResponseModel<List<UserActivities>>(new List<UserActivities> { }, "Done Successfully!", true);
+			return new ResponseModel<PaginationResponse<UserActivities>>(new PaginationResponse<UserActivities>(null,0,0,0), "Done Successfully!", true);
 		}
 
 	    // GET ALL USERS
-		public async Task<ResponseModel<List<User>>> GetAllUsers()
+		public async Task<ResponseModel<PaginationResponse<User>>> GetAllUsers(int page, int pagesize)
 		{
-			var users = await userRepository.GetAllUsers();
-			return new ResponseModel<List<User>>(users, "Users retrieved successfully!", true);
+			var users = await userRepository.GetAllUsers(page, pagesize);
+			return new ResponseModel<PaginationResponse<User>>(users, "Users retrieved successfully!", true);
 		}
 
 		public async Task<bool> UserExists(string email)

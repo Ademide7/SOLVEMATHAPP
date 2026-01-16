@@ -82,7 +82,7 @@ namespace SolveMathApp.Api.Controllers
 		}
 
         [HttpGet("user-activities")]
-        public async Task<IActionResult> GetUserActivities()
+        public async Task<IActionResult> GetUserActivities(int page, int pageSize)
         {
 			// Extract userId from the authenticated user's claims.
             var userIdClaim  = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -92,7 +92,7 @@ namespace SolveMathApp.Api.Controllers
                 return Unauthorized(new { Status = false, Message = "Invalid user!" });
 			}
             Guid userIdGuid = Guid.Parse(userIdClaim.Value);
-			var result = await activityService.GetUserActivities(userIdGuid);
+			var result = await activityService.GetUserActivities(userIdGuid,page,pageSize);
             if (!result.Status)
             {
                 return BadRequest(result);

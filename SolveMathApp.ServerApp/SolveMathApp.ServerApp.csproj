@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="nsync" Version="1.0.29" />
+  </ItemGroup>
+
 </Project>

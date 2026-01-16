@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SolveMathApp.Domain\SolveMathApp.Domain.csproj" />
+    <ProjectReference Include="..\SolveMathApp.SharedKernel\SolveMathApp.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
