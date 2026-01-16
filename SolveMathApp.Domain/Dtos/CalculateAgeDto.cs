@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace SolveMathApp.Domain.Dtos
 {
 	public record CalculateAgeDto(DateTime BirthYear, Guid UserId);
+	public record CalculateAgeRequest(DateTime BirthYear);
 
 	public record CalculateAgeResultDto(int Age);
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SolveMathApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace SolveMathApp.Domain.Abstractions
 		Task<List<Entities.UserActivities>> GetUserActivitiesByUserId(Guid userId);
 		Task<bool> UpdateUser(Entities.User user);
 		Task<bool> AddUserActivity(Entities.UserActivities userActivity);
-	}
+        Task<List<User>> GetAllUsers();
+        Task<bool> UserExists(string email);
+    }
 }

@@ -21,13 +21,16 @@ namespace SolveMathApp.Infrastructure.Presistence.Repository
 
 		public async Task<User?> GetUserByEmail(string email)
 		{
-			return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+			return await _context.Users
+	.Include(u => u.Passwords)
+	.FirstOrDefaultAsync(u => u.Email == email);
 		}
 
-	    //add user
+		//add user
 		public async Task<bool> AddUser(User user)
 		{
 			await _context.Users.AddAsync(user);
+			await _context.Passwords.AddAsync(user?.Passwords?.First());
 			return 0 < await _context.SaveChangesAsync();
 		}
 
@@ -49,5 +52,17 @@ namespace SolveMathApp.Infrastructure.Presistence.Repository
 			return 0 < await _context.SaveChangesAsync();
 		}
 
+		//get all users .
+		public async Task<List<User>> GetAllUsers()
+		{
+			return await _context.Users.ToListAsync();
+
+		}
+
+		// check if user exists by email.
+		public async Task<bool> UserExists(string email)
+		{
+			return await _context.Users.AnyAsync(u => u.Email == email);
+		}
 	}
 }

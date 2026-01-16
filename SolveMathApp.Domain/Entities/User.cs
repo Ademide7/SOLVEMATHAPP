@@ -13,8 +13,11 @@ namespace SolveMathApp.Domain.Entities
 		public string Name { get; set; } = string.Empty;
 		public string Email { get; set; } = string.Empty;
 		public DateTime DateCreated {get; set;} 
-		public DateTime? DateModified {get; set;}
-		public virtual Password Password { get; set; }
+		public DateTime? DateModified {get; set;} 
+
+		public ICollection<Password> Passwords { get; set; } = new List<Password>();
+
+		public string Role { get; set; } = "User";
 
 		public User() => Id = Guid.NewGuid();
 		
@@ -26,7 +29,8 @@ namespace SolveMathApp.Domain.Entities
 			user.Email = userDto.Email;
 			user.DateCreated = DateTime.UtcNow.AddHours(1);
 			user.DateModified = null;
-			user.Password = Password.CreatePassword(userDto.Password);
+			user.Passwords.Add(Password.CreatePassword(userDto.Password));
+			user.Role = "User";
 			return user;
 		}
 

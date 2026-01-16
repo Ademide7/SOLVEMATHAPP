@@ -1,4 +1,5 @@
 ﻿using SolveMathApp.Domain.Dtos;
+using SolveMathApp.Domain.Entities;
 using SolveMathApp.SharedKernel.Models;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ namespace SolveMathApp.Application.Interfaces
 		Task<ResponseModel<CalculateAgeResultDto>> CalculateAge(CalculateAgeDto dto);
 		Task<List<ActivityDto>> GetAllActivities();
 		Task<ResponseModel<CalculateDistanceResultDto>> CalculateDistance(CalculateDistanceDto dto);
-	}
+        Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId);
+    }
 }

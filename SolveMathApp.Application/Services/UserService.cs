@@ -1,4 +1,5 @@
 ﻿using SolveMathApp.Application.Interfaces;
+using SolveMathApp.Application.Models;
 using SolveMathApp.Application.Validations;
 using SolveMathApp.Domain.Abstractions;
 using SolveMathApp.Domain.Dtos;
@@ -13,16 +14,18 @@ using System.Threading.Tasks;
 
 namespace SolveMathApp.Application.Services
 {
-	public class UserService(IUserRepository userRepository) : IUserService
+	public class UserService(IUserRepository userRepository, IJwtTokenService jwtTokenService) : IUserService
 	{
 		public async Task<ResponseModel> CreateUser(UserDto userDto)
 		{
 			var validation = UserValidations.ValidateCreateUser(userDto);
 			if(validation.status is false) return new ResponseModel(validation.errorMessage,validation.status);
+
+			// CHECK IF USER WITH THE EMAIL ALREADY EXISTS 
 			var user = new User().CreateUser(userDto);
 
-			var existingUser = await userRepository.GetUserByEmail(user.Email);
-			if(existingUser != null) return new ResponseModel("User with the provided email already exists!", false);
+			bool existingUser = await userRepository.UserExists(user.Email);
+			if(existingUser) return new ResponseModel("User with the provided email already exists!", false);
 			await userRepository.AddUser(user);
 
 			return new ResponseModel("User created successfully!",true);
@@ -34,17 +37,30 @@ namespace SolveMathApp.Application.Services
 			return new ResponseModel("User updated successfully!", true);
 		}
 
-		public async Task<ResponseModel<bool>> ValidateUserByEmail(string email, string password)
+		public async Task<ResponseModel<ValidateUserDto>> ValidateUser(string email, string password)
 		{
 			var validation = Utilities.ValidateEmail(email);
-			if (validation) return new ResponseModel<bool>(false,"Invalid Credentials!",false);
+			if (!validation) return new ResponseModel<ValidateUserDto>(new ValidateUserDto(false, string.Empty), "Invalid Credentials!",false);
 
 			var user = await userRepository.GetUserByEmail(email);
-			if (user == null) return new ResponseModel<bool>(false, "Invalid Credentials!", false);
+			if (user == null) return new ResponseModel<ValidateUserDto>(new ValidateUserDto(false, string.Empty), "Invalid Credentials!", false);
 			var encryptedPassword = Utilities.EncryptPassword(password);
-			if (user.Password.Value != encryptedPassword) return new ResponseModel<bool>(false, "Invalid Credentials!", false);
-            
-			return new ResponseModel<bool>(true, "Valid User!", true);
+			if (user?.Passwords?.OrderByDescending( m => m.DateCreated)?.FirstOrDefault()?.Value != encryptedPassword) return new ResponseModel<ValidateUserDto>(new ValidateUserDto(false, string.Empty), "Invalid Credentials!", false);
+			
+			Console.WriteLine("User validated successfully!");
+			string token = jwtTokenService.GenerateToken(user);
+			Console.WriteLine($"Token Generated for {user.Email}");
+
+			return new ResponseModel<ValidateUserDto>(new ValidateUserDto(true , token),"Valid User!", true);
+		}
+
+		//refresh token.
+		public async Task<ResponseModel<ValidateUserDto>> RefreshToken(string token, string email)
+		{
+			 var user = await userRepository.GetUserByEmail(email);
+			if (user == null) return new ResponseModel<ValidateUserDto>(new ValidateUserDto(false, string.Empty), "Invalid Token!", false);
+			var newToken = jwtTokenService.GenerateToken(user);
+			return new ResponseModel<ValidateUserDto>(new ValidateUserDto(true, newToken), "Token Refreshed Successfully!", true);
 		}
 
 		public async Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId)
@@ -55,6 +71,18 @@ namespace SolveMathApp.Application.Services
 				return new ResponseModel<List<UserActivities>>(userActivities, "Done Successfully!", true);
 			}
 			return new ResponseModel<List<UserActivities>>(new List<UserActivities> { }, "Done Successfully!", true);
+		}
+
+	    // GET ALL USERS
+		public async Task<ResponseModel<List<User>>> GetAllUsers()
+		{
+			var users = await userRepository.GetAllUsers();
+			return new ResponseModel<List<User>>(users, "Users retrieved successfully!", true);
+		}
+
+		public async Task<bool> UserExists(string email)
+		{
+			return await userRepository.UserExists(email);
 		}
 
 	}

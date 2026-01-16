@@ -19,8 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();  
 
 // Add Infrastructure Services
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -107,7 +106,9 @@ using (var scope = app.Services.CreateScope())
     // This ensures the database file and tables are created  
     context.Database.EnsureCreated();
 
-    FakeDatabaseSeeder.Seed(context);
+	//context.Database.Migrate();
+
+	FakeDatabaseSeeder.Seed(context);
 }
 
 app.UseCors("AllowAll");

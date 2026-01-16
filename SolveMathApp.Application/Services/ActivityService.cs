@@ -78,6 +78,17 @@ namespace SolveMathApp.Application.Services
 			return new ResponseModel<bool>(true, "User activity logged successfully", true); 
 		}
 
+		// get all activitieslogged by userid
+		public async Task<ResponseModel<List<UserActivities>>> GetUserActivities(Guid userId)
+		{
+			var userActivities = await userRepository.GetUserActivitiesByUserId(userId);
+			if (userActivities.Count > 0)
+			{
+				return new ResponseModel<List<UserActivities>>(userActivities, "Done Successfully!", true);
+			}
+			return new ResponseModel<List<UserActivities>>(null, "No activities found for the user.", false);
+		}
+
 
 	}
 }

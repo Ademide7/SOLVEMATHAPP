@@ -8,5 +8,7 @@ namespace SolveMathApp.Domain.Dtos
 {
 	public  record CalculateFactorialDto(int Number, Guid UserId);
 
+	public record CalculateFactorialRequest(int Number);
+
 	public  record CalculateFactorialResultDto(long Result);
 }
