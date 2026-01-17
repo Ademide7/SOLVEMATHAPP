@@ -1,0 +1,94 @@
+﻿@page "/distance" 
+@using SolveMathApp.ServerApp.Data.Services.SolveMathService
+@inject NavigationManager navManager
+@inject ISolveMathApi iSolveMathApi
+@attribute [Authorize]
+
+
+<h3>Calculate Distance</h3>
+
+<EditForm Model="@cal" OnValidSubmit="HandleDistanceCalculation">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>X₁</label>
+        <InputNumber class="form-control" @bind-Value="cal.X" />
+        <ValidationMessage For="@(() => cal.X)" />
+    </div>
+
+    <div class="form-group">
+        <label>Y₁</label>
+        <InputNumber class="form-control"
+                     @bind-Value="cal.Y" />
+        <ValidationMessage For="@(() => cal.Y)" />
+    </div>
+
+    <div class="form-group">
+        <label>X₂</label>
+        <InputNumber class="form-control" @bind-Value="cal.X2" />
+        <ValidationMessage For="@(() => cal.X2)" />
+    </div>
+
+    <div class="form-group">
+         <label>Y₂</label>
+        <InputNumber class="form-control" @bind-Value="cal.Y2" />
+        <ValidationMessage For="@(() => cal.Y2)" />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-block">
+        Calculate Distance
+    </button>
+
+    <p class="text-info">@Result</p>
+</EditForm>
+
+
+
+@code {
+
+    private DistanceCalculationModel cal = new();
+
+    public class DistanceCalculationModel
+    {
+        [Required]
+        public int  X { get; set; }
+
+        [Required]
+        public int  Y { get; set; }
+
+        [Required]
+        public int X2 { get; set; }
+
+        [Required]
+        public int Y2 { get; set; }
+    }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    public string Result { get; set; }
+
+    public async Task HandleDistanceCalculation()
+    {
+        var res = await iSolveMathApi.CalculateDistance(cal.X,cal.Y,cal.X2,cal.Y2);
+
+        if (res.Status)
+        {
+            if (res.Data is null)
+            {
+                Message = "Error calculating age. Please try again.";
+                return;
+            } 
+            Result = $"The Distance is: {res?.Data?.Distance} units.";
+        }
+        else
+        {
+            Result = string.Empty;
+            Message = "Error calculating age. Please try again.";
+        }
+    }
+
+}

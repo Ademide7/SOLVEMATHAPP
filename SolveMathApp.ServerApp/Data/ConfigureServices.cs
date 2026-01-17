@@ -1,5 +1,8 @@
-﻿using SolveMathApp.ServerApp.Data.Services.Models;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using SolveMathApp.ServerApp.Data.Services.AuthenticationService;
+using SolveMathApp.ServerApp.Data.Services.Models;
 using SolveMathApp.ServerApp.Data.Services.SolveMathService;
+using SolveMathApp.ServerApp.Providers;
 
 namespace SolveMathApp.ServerApp.Data
 {
@@ -9,12 +12,17 @@ namespace SolveMathApp.ServerApp.Data
 		{ 
 			// Add repositories
 			services.AddScoped<ISolveMathApi, SolveMathApi>();
+			services.AddHttpClient();
+			services.AddScoped<ApiAuthenticationStateProvider>();
+			services.AddScoped<IAuthService, AuthService>();
+			services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+
 			// add ioptions pattern for SolveMathApiSettings.
 
 			// Bind Jwt section and enable IOptionsMonitor
 			services.Configure<SolveMathApiSettings>(
 			configuration.GetSection("SolveMathApiSettings"));
-		
+			 
 			return services;
 		}
 	}

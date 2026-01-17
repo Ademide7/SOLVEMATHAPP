@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SolveMathApp.Application.Interfaces;
+using SolveMathApp.Application.Models;
 using SolveMathApp.Domain.Dtos;
 
 namespace SolveMathApp.Api.Controllers
@@ -11,11 +12,11 @@ namespace SolveMathApp.Api.Controllers
     public class UserController(IUserService userService) : ControllerBase
     {
         [HttpPost("validate")]
-        public async Task<IActionResult> ValidateUser([FromForm] string email, [FromForm] string password)
+        public async Task<IActionResult> ValidateUser(ValidateUserRequest validateUserRequest)
         {
             try
             {
-                var result = await userService.ValidateUser(email, password);
+                var result = await userService.ValidateUser(validateUserRequest.email, validateUserRequest.password);
                 if (!result.Status)
                 {
                     return BadRequest(result);
@@ -60,5 +61,12 @@ namespace SolveMathApp.Api.Controllers
             var result = await userService.GetAllUsers(page,pageSize);
             return Ok(result);
         }
-    }
+
+		//test health
+        [HttpGet("health")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(new { Status = true, Message = "User API is healthy." });
+		}
+	}
 }

@@ -1,8 +1,16 @@
 ﻿@page "/counter"
+@using SolveMathApp.ServerApp.Providers
+@using System.IdentityModel.Tokens.Jwt
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+@attribute [Authorize] 
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
+
+<p>@UserName</p>
 
 <p role="status">Current count: @currentCount</p>
 
@@ -14,5 +22,19 @@
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private string? UserName;
+
+ 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            UserName = user.FindFirst(JwtRegisteredClaimNames.UniqueName)?.Value;
+        }
     }
 }

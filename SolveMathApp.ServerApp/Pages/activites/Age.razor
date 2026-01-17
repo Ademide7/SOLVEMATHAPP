@@ -1,0 +1,70 @@
+﻿@page "/age"
+@using SolveMathApp.ServerApp.Data.Services.SolveMathService
+@inject NavigationManager navManager
+@inject ISolveMathApi iSolveMathApi
+@attribute [Authorize]
+
+
+<h3>Calculate Age</h3>
+
+<div>
+    <p class="text-danger">@Message</p>
+    <EditForm Model="@ageCalculationModel" OnValidSubmit="HandleAgeCalculation">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>Date Of Birth</label>
+            <InputDate @bind-Value="ageCalculationModel.DateTimeOfBirth"
+                       class="form-control"
+                       Type="InputDateType.Date" />
+            <ValidationMessage For="@(() => ageCalculationModel.DateTimeOfBirth)" />
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary btn-block">Calculate Age</button>
+        <p class="text-info">@Result</p>
+    </EditForm>
+
+</div>
+
+@code {
+
+    private AgeCalculationModel ageCalculationModel = new();
+
+    public class AgeCalculationModel
+    {
+        [Required] 
+        public DateTime DateTimeOfBirth { get; set; }
+        
+    }
+
+    [Parameter]
+    public string Message { get; set; }
+
+    public string Result { get; set; }
+
+    public async Task HandleAgeCalculation()
+    {
+        var res = await iSolveMathApi.CalculateAge(ageCalculationModel.DateTimeOfBirth); 
+
+        if (res.Status)
+        {
+            if(res.Data is null)
+            {
+                Message = "Error calculating age. Please try again.";
+                return;
+            } 
+            
+            Result = $"Your Age is: {res?.Data?.Age} years.";
+            Message = string.Empty;
+        }
+        else
+        {
+            Result = string.Empty;
+            Message = "Error calculating age. Please try again.";
+        }
+    }
+
+}

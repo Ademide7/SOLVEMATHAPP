@@ -1,4 +1,6 @@
-﻿namespace SolveMathApp.ServerApp.Data.Services.Models
+﻿ 
+
+namespace SolveMathApp.ServerApp.Data.Services.Models
 {
 	public record CalculateFactorialDto(int Number, Guid UserId);
 
@@ -31,6 +33,27 @@
 	public record UserDetailsDto(Guid Id, string Name, string Email, DateTime DateCreated, DateTime? DateModified);
 
 	public record PaginationResponse<T>(IEnumerable<T> Items, int TotalCount, int PageSize, int CurrentPage);
+
+	public record UserActivities
+	{
+		public ActivityEnum ActivityId { get; init; } = ActivityEnum.None;
+		public string Description { get; init; } = string.Empty;
+		public DateTime DateCreated { get; init; }
+	}
+
+	public enum ActivityEnum
+	{
+		None = 0,
+		CalculateDistance = 1,
+		CalculateFactorial = 2,
+		CalculateAgeFromCurrentDate = 3,
+	}
+
+
+
+
+
+
 
 
 

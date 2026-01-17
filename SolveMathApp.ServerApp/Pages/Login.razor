@@ -1,0 +1,89 @@
+﻿@page "/login"
+@using SolveMathApp.ServerApp.Providers
+
+@inject IAuthService authorizationService;
+@inject NavigationManager navigationManager;
+
+
+<h3>Login</h3>
+ 
+<div>
+    <p class="text-danger">@Message</p>
+    <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <InputText class="form-control" @bind-Value="loginModel.UserName" />
+            <ValidationMessage For="@(() => loginModel.UserName)" />
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <label>Password</label>
+            <InputText class="form-control" type="password"
+                       @bind-Value="loginModel.Password" />
+            <ValidationMessage For="@(() => loginModel.Password)" />
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </EditForm>
+</div>
+
+
+@if (isLoading)
+{
+    <div class="text-center my-3">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+
+
+@code 
+{
+    private LoginModel loginModel = new();
+
+    private bool isLoading;
+
+    public class LoginModel
+    {
+        [Required]
+        [EmailAddress]
+        public string UserName { get; set; }
+        [Required] 
+        public string Password { get; set;  }
+    }
+
+    [Parameter]
+    public string Message { get; set; }
+     
+
+    public async Task HandleLogin()
+    {
+        isLoading = true;
+
+        try
+        {
+            var response = await authorizationService.Login(loginModel.UserName, password: loginModel.Password);
+            if (response.isValidated)
+            {
+                navigationManager.NavigateTo("/");
+            }
+
+            Message = response.message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+ 
+        
+    }
+
+}

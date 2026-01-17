@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace SolveMathApp.Application.Models
 {
-    public record ValidateUserDto(bool IsValidUser, string token);
+	public record ValidateUserRequest(string email, string password);
+	public record ValidateUserDto(bool IsValidUser, string token);
 }

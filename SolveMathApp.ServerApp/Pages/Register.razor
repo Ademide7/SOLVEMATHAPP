@@ -1,0 +1,74 @@
+﻿@page "/register";
+@using System.ComponentModel.DataAnnotations
+@using SolveMathApp.ServerApp.Data.Services.SolveMathService
+@using SolveMathApp.ServerApp.Providers
+@inject ISolveMathApi solveMathApiService 
+@inject NavigationManager navManager
+
+
+<h3>Register</h3>
+
+<div>
+	<p class="text-danger">@Message</p>
+	<EditForm Model="@registerUser" OnValidSubmit="HandleRegister">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		<div class="form-group">
+			<label>Name</label>
+			<InputText class="form-control" @bind-Value="registerUser.Name" />
+			<ValidationMessage For="@(() => registerUser.Name)" />
+		</div>
+		<br />
+		<div class="form-group">
+			<label>Email Address</label>
+			<InputText class="form-control" @bind-Value="registerUser.Email" />
+			<ValidationMessage For="@(() => registerUser.Email)" />
+		</div>
+		<br />
+        <div class="form-group"> 
+			<label>Password</label>
+			<InputText class="form-control" type="password"
+					   @bind-Value="registerUser.Password" />
+			<ValidationMessage For="@(() => registerUser.Password)" />
+		</div>
+		<br />
+		<button type="submit" class="btn btn-primary btn-block">Register</button>
+    </EditForm>
+</div>
+
+
+
+@code {
+
+	public class RegisterUser
+	{ 
+		[Required]
+		public string Name { get; set; } = string.Empty;
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; } = string.Empty; 
+		[Required]
+		public string Password { get; set; } = string.Empty;
+	}
+
+	public string Message { get; set; } = string.Empty;
+
+	public RegisterUser registerUser = new RegisterUser();	
+
+	public async Task HandleRegister()
+	{
+
+		var response = await solveMathApiService
+		.CreateUser( new Data.Services.Models.UserDto(registerUser.Email, registerUser.Name, registerUser.Password));
+		if (response.Status)
+		{ 
+			Message = response.Message;
+            navManager.NavigateTo("/login");
+		}
+		else
+		{
+			Message = response.Message;
+        }
+	}
+
+}

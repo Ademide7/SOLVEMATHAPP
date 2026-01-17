@@ -1,13 +1,18 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using SolveMathApp.ServerApp.Data;
+using SolveMathApp.ServerApp.Data.Services.SolveMathService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddDataServices(builder.Configuration); 
+
 
 var app = builder.Build();
 
@@ -18,6 +23,7 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 

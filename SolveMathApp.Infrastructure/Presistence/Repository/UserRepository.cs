@@ -41,7 +41,7 @@ namespace SolveMathApp.Infrastructure.Presistence.Repository
 
 		public async Task<PaginationResponse<UserActivities>> GetUserActivitiesByUserId(Guid userId, int page ,int pageSize)
 		{
-			return await PaginationHelper.PaginateAsync<UserActivities>(_context.UserActivities.Where(ua => ua.UserId == userId).AsNoTracking(),page,pageSize);
+			return await PaginationHelper.PaginateAsync<UserActivities>(_context.UserActivities.Where(ua => ua.UserId == userId).OrderByDescending(m=>m.DateCreated).AsNoTracking(),page,pageSize);
 		}
 
 		public async Task<bool> UpdateUser(User user)

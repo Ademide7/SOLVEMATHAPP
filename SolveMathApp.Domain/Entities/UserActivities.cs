@@ -25,6 +25,7 @@ namespace SolveMathApp.Domain.Entities
 			userActivities.ActivityId = userActivitiesDto.ActivityId;
 			userActivities.UserId = userActivitiesDto.UserId;
 			userActivities.Description = userActivitiesDto.description;
+			userActivities.DateCreated = DateTime.UtcNow.AddHours(1);	
 			return userActivities;
 		} 
 
