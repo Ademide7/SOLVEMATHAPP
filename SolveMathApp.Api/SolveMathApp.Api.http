@@ -4,3 +4,6 @@ GET {{SolveMathApp.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET  {{SolveMathApp.Api_HostAddress}}/api/User/health
+Accept: application/json

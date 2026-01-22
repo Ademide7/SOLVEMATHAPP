@@ -12,5 +12,7 @@ namespace SolveMathApp.SharedKernel.Models
 	// pagaination response record
 	public record PaginationResponse<T>(IEnumerable<T> Items, int TotalCount, int PageSize, int CurrentPage)
 		: ResponseModel<IEnumerable<T>>(Items, "Paginated data retrieved successfully", true);
-	 
+
+
+	
 }
